@@ -13,16 +13,16 @@ import SparkleParticles from './components/SparkleParticles';
 
 const TOTAL_STEPS = 6;
 
+const initialState = {
+  selectedDate: '',
+  selectedLocation: '',
+  selectedMeal: '',
+  selectedFoods: [],
+};
+
 export default function App() {
   const [step, setStep] = useState(0); // 0 = proposal, 1-5 = form steps, 6 = success
-  const [formData, setFormData] = useState({
-    selectedDate: '',
-    selectedLocation: '',
-    selectedMeal: '',
-    selectedFoods: [],
-    name: '',
-    email: '',
-  });
+  const [formData, setFormData] = useState(initialState);
 
   const updateFormData = useCallback((key, value) => {
     setFormData((prev) => ({ ...prev, [key]: value }));

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { sendEmails } from '../utils/sendEmail';
 
 const pageVariants = {
   initial: { opacity: 0, x: 60, scale: 0.97 },
@@ -8,7 +7,7 @@ const pageVariants = {
   exit: { opacity: 0, x: -60, scale: 0.97 },
 };
 
-export default function ConfirmStep({ formData, updateFormData, onSuccess, onBack }) {
+export default function ConfirmStep({ formData, onSuccess, onBack }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({});
@@ -24,12 +23,6 @@ export default function ConfirmStep({ formData, updateFormData, onSuccess, onBac
 
   const validate = () => {
     const errors = {};
-    if (!formData.name.trim()) errors.name = 'Please enter your name 💕';
-    if (!formData.email.trim()) {
-      errors.email = 'Please enter your email 💌';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.email = 'Please enter a valid email address';
-    }
     if (!formData.selectedDate) errors.date = 'Date is required';
     if (!formData.selectedLocation) errors.location = 'Location is required';
     if (!formData.selectedMeal) errors.meal = 'Meal type is required';
@@ -39,21 +32,16 @@ export default function ConfirmStep({ formData, updateFormData, onSuccess, onBac
     return Object.keys(errors).length === 0;
   };
 
-  const handleConfirm = async () => {
+  const handleConfirm = () => {
     if (!validate()) return;
     setLoading(true);
     setError('');
-    try {
-      await sendEmails(formData);
-      // Clear sensitive data from state on success
-      updateFormData('name', '');
-      updateFormData('email', '');
-      onSuccess();
-    } catch (err) {
-      setError(err.message || 'Something went wrong. Please try again 💔');
-    } finally {
+    
+    // Simulate a brief loading state for UX
+    setTimeout(() => {
       setLoading(false);
-    }
+      onSuccess();
+    }, 1200);
   };
 
   // Split foods into food and drinks
@@ -177,51 +165,6 @@ export default function ConfirmStep({ formData, updateFormData, onSuccess, onBac
           )}
         </div>
 
-        {/* Form Fields */}
-        <div className="space-y-4">
-          {/* Name */}
-          <div>
-            <label className="mb-1.5 block text-xs font-medium text-rose-200/60">
-              Your Name 💕
-            </label>
-            <input
-              id="confirm-name"
-              type="text"
-              placeholder="Enter your beautiful name..."
-              value={formData.name}
-              onChange={(e) => {
-                updateFormData('name', e.target.value);
-                setFieldErrors((prev) => ({ ...prev, name: '' }));
-              }}
-              className="input-romantic"
-            />
-            {fieldErrors.name && (
-              <p className="mt-1 text-xs text-rose-400">{fieldErrors.name}</p>
-            )}
-          </div>
-
-          {/* Email */}
-          <div>
-            <label className="mb-1.5 block text-xs font-medium text-rose-200/60">
-              Email Address 💌
-            </label>
-            <input
-              id="confirm-email"
-              type="email"
-              placeholder="your.email@example.com"
-              value={formData.email}
-              onChange={(e) => {
-                updateFormData('email', e.target.value);
-                setFieldErrors((prev) => ({ ...prev, email: '' }));
-              }}
-              className="input-romantic"
-            />
-            {fieldErrors.email && (
-              <p className="mt-1 text-xs text-rose-400">{fieldErrors.email}</p>
-            )}
-          </div>
-        </div>
-
         {/* Validation Errors for previous steps */}
         {(fieldErrors.date || fieldErrors.location || fieldErrors.meal || fieldErrors.food) && (
           <div className="mt-3 rounded-xl bg-red-500/10 p-3">
@@ -269,7 +212,7 @@ export default function ConfirmStep({ formData, updateFormData, onSuccess, onBac
             {loading ? (
               <>
                 <div className="spinner" />
-                <span>Sending confirmation... 💌</span>
+                <span>Confirming... 💕</span>
               </>
             ) : (
               'Confirm Date ❤️'
