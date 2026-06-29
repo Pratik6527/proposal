@@ -99,7 +99,7 @@ export default function ProposalPage({ onYes }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          Will you go on a beautiful date with Pratik?
+          Will you go on a beautiful date with me? 
         </motion.h1>
 
         <motion.p
