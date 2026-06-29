@@ -7,12 +7,22 @@ export async function sendEmails(formData) {
       return { success: true, message: 'Date confirmed and emails sent successfully.' };
     }
 
+    // Map frontend state properties to the exact keys expected by the backend validation
+    const apiPayload = {
+      name: formData.name,
+      email: formData.email,
+      selectedDate: formData.selectedDate,
+      location: formData.selectedLocation,
+      mealType: formData.selectedMeal,
+      foods: formData.selectedFoods,
+    };
+
     const response = await fetch('/api/send-date', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(apiPayload),
     });
 
     const contentType = response.headers.get('content-type');

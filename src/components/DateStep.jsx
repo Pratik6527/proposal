@@ -73,7 +73,12 @@ export default function DateStep({ value, onChange, onNext, onBack }) {
           >
             <input
               id="date-picker"
-              type="date"
+              type={value ? 'date' : 'text'}
+              onFocus={(e) => (e.target.type = 'date')}
+              onBlur={(e) => {
+                if (!e.target.value) e.target.type = 'text';
+              }}
+              placeholder="dd-mm-yyyy"
               min={today}
               value={value}
               onChange={handleChange}
