@@ -1,0 +1,305 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Base Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #1a0a1e 0%, #2d1033 25%, #1e0a2e 50%, #0f0518 100%);
+  color: #fce7f3;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f43f5e, #a855f7);
+  border-radius: 3px;
+}
+
+/* ===== Glassmorphism Utilities ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(244, 63, 94, 0.3);
+  box-shadow: 0 8px 30px rgba(244, 63, 94, 0.15);
+  transform: translateY(-2px);
+}
+
+.glass-card-selected {
+  background: rgba(244, 63, 94, 0.15) !important;
+  border-color: rgba(244, 63, 94, 0.5) !important;
+  box-shadow: 0 0 30px rgba(244, 63, 94, 0.2),
+    inset 0 0 30px rgba(244, 63, 94, 0.05) !important;
+}
+
+/* ===== Gradient Text ===== */
+.gradient-text {
+  background: linear-gradient(135deg, #fda4af 0%, #fb7185 30%, #f43f5e 60%, #e879f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #fcd34d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Button Styles ===== */
+.btn-primary {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 50%, #be123c 100%);
+  color: white;
+  font-weight: 600;
+  padding: 14px 40px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.05rem;
+  letter-spacing: 0.025em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(244, 63, 94, 0.4);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(244, 63, 94, 0.5);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fecdd3;
+  font-weight: 500;
+  padding: 12px 32px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(244, 63, 94, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ===== Floating Hearts ===== */
+.floating-heart {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  animation: floatHeart linear forwards;
+}
+
+@keyframes floatHeart {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(0deg) scale(0);
+  }
+  10% {
+    opacity: 0.7;
+    transform: translateY(90vh) rotate(20deg) scale(1);
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10vh) rotate(360deg) scale(0.5);
+  }
+}
+
+/* ===== Sparkle Particles ===== */
+.sparkle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle, #fbbf24, transparent);
+  box-shadow: 0 0 6px #fbbf24, 0 0 12px rgba(251, 191, 36, 0.5);
+  animation: sparkleFloat ease-in-out infinite;
+}
+
+@keyframes sparkleFloat {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0) translateY(0);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1) translateY(-10px);
+  }
+  75% {
+    opacity: 0.6;
+    transform: scale(0.8) translateY(-30px);
+  }
+}
+
+/* ===== Progress Bar ===== */
+.progress-bar-fill {
+  background: linear-gradient(90deg, #f43f5e, #a855f7, #f43f5e);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ===== Date Input ===== */
+input[type="date"] {
+  color-scheme: dark;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7) sepia(1) saturate(5) hue-rotate(300deg);
+  cursor: pointer;
+}
+
+/* ===== Custom Input ===== */
+.input-romantic {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #fce7f3;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-romantic::placeholder {
+  color: rgba(252, 231, 243, 0.4);
+}
+
+.input-romantic:focus {
+  border-color: rgba(244, 63, 94, 0.5);
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ===== Checkbox Card ===== */
+.checkbox-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  font-size: 0.9rem;
+}
+
+.checkbox-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(244, 63, 94, 0.2);
+}
+
+.checkbox-card-selected {
+  background: rgba(244, 63, 94, 0.12);
+  border-color: rgba(244, 63, 94, 0.4);
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.1);
+}
+
+/* ===== Section Divider ===== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.3), transparent);
+  margin: 16px 0;
+}
+
+/* ===== Loading Spinner ===== */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Ambient Glow ===== */
+.ambient-glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== Responsive Font Sizes ===== */
+@media (max-width: 640px) {
+  .heading-romantic {
+    font-size: 1.75rem !important;
+  }
+}
