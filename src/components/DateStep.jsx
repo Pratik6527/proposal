@@ -65,24 +65,28 @@ export default function DateStep({ value, onChange, onNext, onBack }) {
           Pick a day that will become a beautiful memory ✨
         </p>
 
-        {/* Date Picker */}
         <div className="mx-auto max-w-xs">
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            className="relative mx-auto w-full max-w-[220px]"
           >
+            {/* Custom Placeholder Overlay */}
+            {!value && (
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-lg font-medium text-rose-200/60">
+                dd-mm-yyyy
+              </div>
+            )}
             <input
               id="date-picker"
-              type={value ? 'date' : 'text'}
-              onFocus={(e) => (e.target.type = 'date')}
-              onBlur={(e) => {
-                if (!e.target.value) e.target.type = 'text';
-              }}
-              placeholder="dd-mm-yyyy"
+              type="date"
               min={today}
               value={value}
+              onClick={(e) => e.target.showPicker && e.target.showPicker()}
               onChange={handleChange}
-              className="input-romantic w-full text-center text-lg font-medium"
+              className={`input-romantic w-full text-center text-lg font-medium ${
+                !value ? 'text-transparent' : 'text-inherit'
+              }`}
               style={{ cursor: 'pointer' }}
             />
           </motion.div>
